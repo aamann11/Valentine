@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+  <style>
+    /* Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap');
+
+    :root{
+      --pink-1: #ff6a88;
+      --pink-2: #ff99ac;
+      --accent: #ff4d6d;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,0.6), transparent 20%),
+        linear-gradient(135deg, #fff0f4 0%, #ffeef6 30%, #ffdbe6 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 40px;
+      box-sizing:border-box;
+      color:#222;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 620px;
+      background: rgba(255,255,255,0.16);
+      border-radius: 20px;
+      padding: 40px 36px;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      border: 1px solid rgba(255,255,255,0.35);
+      backdrop-filter: blur(8px) saturate(120%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 32px;
+      line-height: 1.2;
+      margin: 0 0 18px 0;
+      background: linear-gradient(90deg, var(--accent), var(--pink-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    h1 .name{
+      font-family: 'Great Vibes', cursive;
+      font-weight: 600;
+      color: var(--accent);
+      -webkit-text-fill-color: initial;
+      background: none;
+      font-size: 44px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+
+    .subtitle{
+      margin-top: 6px;
+      color: #6b4b56;
+      font-weight: 300;
+    }
+
+    .buttons {
+      position: relative;
+      height: 120px;
+      margin-top: 22px;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 16px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      position: absolute;
+      transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+    }
+
+    #yes {
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg,var(--pink-1),var(--pink-2));
+      color: white;
+      font-weight: 600;
+    }
+
+    #yes:hover{ transform: translateX(-50%) scale(1.06); box-shadow: 0 18px 40px rgba(255,90,120,0.18); }
+
+    #no {
+      left: 14%;
+      top: 56px;
+      background: rgba(255,255,255,0.09);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    #no:hover{ transform: scale(1.04) rotate(-8deg); }
+
+    /* Confetti pieces for celebration */
+    .confetti{
+      position: fixed;
+      width: 10px;
+      height: 14px;
+      opacity: 0.95;
+      will-change: transform, opacity;
+      border-radius: 2px;
+      transform-origin: center;
+      pointer-events: none;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-20vh) rotate(0deg) scale(0.8); opacity: 1; }
+      100% { transform: translateY(120vh) rotate(720deg) scale(1.05); opacity: 0; }
+    }
+
+    /* Yes button 'send' micro animation */
+    #yes.sending{
+      animation: sendPulse 420ms ease forwards;
+      transform-origin: center;
+    }
+
+    @keyframes sendPulse{
+      0% { transform: translateX(-50%) scale(1); }
+      40% { transform: translateX(-50%) translateY(-10px) scale(0.98) rotate(-6deg); }
+      100% { transform: translateX(-50%) translateY(-6px) scale(0.98) rotate(-2deg); opacity: 0.98; }
+    }
+
+    /* Celebration message */
+    .celebrate{
+      min-height: 100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:40px;
+      box-sizing:border-box;
+      background: linear-gradient(135deg,#fff7fb,#ffeef6);
+    }
+
+    .celebrate .message h1{
+      font-size:46px;
+      margin:0 0 6px 0;
+      color: var(--accent);
+    }
+
+    .celebrate .message p{
+      margin:0;
+      color:#6b4b56;
+      font-weight:300;
+      font-size:18px;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 520px){
+      .card{ padding: 26px 18px; max-width: 420px; }
+      h1{ font-size: 24px; }
+      h1 .name{ font-size: 36px; }
+      .buttons{ height: 140px; }
+      #no{ left: 8%; top: 68px; }
+      #yes{ font-size: 15px; padding: 12px 20px; }
+    }
+  </style> 
+</head>
+<body>
+
+  <div class="card">
+    <h1>Will you be my Valentine, <span class="name">Aditi</span>? 💘</h1>
+    <div class="subtitle">A little card made with 💖 just for you</div>
+
+    <div class="buttons">
+      <button id="yes" onclick="yesClicked()">Yes 💖</button>
+      <button id="no" onmouseover="moveNo()">No 😜</button>
+    </div>
+  </div>
+
+  <script>
+    function moveNo() {
+      const noBtn = document.getElementById("no");
+      const buttonsArea = document.querySelector('.buttons');
+      const rect = buttonsArea.getBoundingClientRect();
+      const maxX = Math.max(0, rect.width - noBtn.offsetWidth - 12);
+      const maxY = Math.max(0, rect.height - noBtn.offsetHeight - 12);
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+      noBtn.style.transform = `rotate(${Math.floor(Math.random()*40-20)}deg)`;
+    }
+
+    function yesClicked() {
+      const yesBtn = document.getElementById('yes');
+      // small send pulse
+      yesBtn.classList.add('sending');
+
+      // spawn an initial confetti burst
+      setTimeout(() => {
+        spawnConfetti(36, 14);
+      }, 180);
+
+      // after a short delay, show the celebration screen
+      setTimeout(() => {
+        document.body.innerHTML = `
+          <div class="celebrate">
+            <div class="message">
+              <h1>Yay!! <span class="name">Aditi</span> 💕</h1>
+              <p>You just made my day — will you be my Valentine forever?</p>
+            </div>
+          </div>
+        `;
+
+        // second longer confetti burst on the celebration screen
+        spawnConfetti(48, 18);
+      }, 420);
+    }
+
+    function spawnConfetti(count = 40, maxSize = 18){
+      const colors = ['#ff6a88','#ffb3c6','#ffd9e2','#ffd166','#ff7eb6','#d76fa5'];
+      for (let i = 0; i < count; i++){
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        const w = 6 + Math.floor(Math.random() * maxSize);
+        const h = 8 + Math.floor(Math.random() * (maxSize-4));
+        c.style.width = w + 'px';
+        c.style.height = h + 'px';
+        c.style.left = Math.random() * 100 + '%';
+        c.style.top = -20 - Math.random() * 20 + 'vh';
+        c.style.background = colors[Math.floor(Math.random()*colors.length)];
+        const duration = 2.5 + Math.random() * 3.5;
+        const delay = Math.random() * 0.6;
+        c.style.animation = `confettiFall ${duration}s linear ${delay}s forwards`;
+        c.style.transform = `rotate(${Math.floor(Math.random()*360)}deg)`;
+        document.body.appendChild(c);
+        // remove after animation
+        setTimeout(() => c.remove(), (duration + delay + 0.3) * 1000);
+      }
+    }
+  </script>
+
+</body>
+</html>
